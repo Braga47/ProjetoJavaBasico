@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 import builders.StudentsBuilder;
-import entities.Studant;
+import entities.Student;
 
 public class Main {
 
@@ -30,5 +33,161 @@ public class Main {
             - Exiba os dados nesse formato: <posicao> - <código> - <nome> : Média = <nota>
 
          */
+
+        //Exercise 1: The students with a grade higher than 7.0
+        System.out.println("Alunos Aprovados: ");
+        for (Student s :
+                allStudents) {
+            if (Functions.Average(s) >= 7) {
+                System.out.printf("%d - %s : Média = %.2f\n", s.getCode(), s.getName(), Functions.Average(s));
+            }
+        }
+
+        //Exercise 2: The students who failed
+        System.out.println("Alunos Reprovados: ");
+        for (Student s :
+                allStudents) {
+            float missed = 7.0f - Functions.Average(s);
+            if (Functions.Average(s) <= 7) {
+                System.out.printf("%d - %s : Média = %.2f (faltou = %.2f)\n", s.getCode(), s.getName(), Functions.Average(s), missed);
+            }
+        }
+
+        //Exercise 3: Students with the highest note possible.
+        System.out.println("Alunos Nota 10: ");
+        for (Student s :
+                allStudents) {
+            if (Functions.lowestHighest(s, 'h') == 10) {
+                System.out.printf("%d - %s \n", s.getCode(), s.getName());
+            }
+        }
+
+        //Exercise 4: Students with the lower score.
+        System.out.println("Aluno com a pior nota: ");
+        float lowerScore = 100f;
+        for (Student b :
+                allStudents) {
+            if (lowerScore >= Functions.lowestHighest(b, 'l')) {
+                lowerScore = Functions.lowestHighest(b, 'l');
+            }
+        }
+        for (Student a :
+                allStudents) {
+            if (Functions.lowestHighest(a, 'l') == lowerScore) {
+                System.out.printf("%d - %s: Nota = %.2f\n", a.getCode(), a.getName(), Functions.lowestHighest(a, 'l'));
+            }
+        }
+
+        //Exercise 5: Top 3 students.
+        System.out.println("Pódio dos alunos: ");
+        float first = 0;
+        float second = 0;
+        float third = 0;
+
+        for (Student b : allStudents) {
+            Float temp = Functions.lowestHighest(b, 'h');
+            if (temp > first) {
+                first = temp;
+            }
+            if (temp > second && temp < first) {
+                second = temp;
+            }
+            if (temp > third && temp < second) {
+                third = temp;
+            }
+        }
+        System.out.println("1° lugar: ");
+        for (Student a :
+                allStudents) {
+            float temp = Functions.lowestHighest(a, 'h');
+            if (temp == first) {
+                System.out.printf("%d - %s: Nota = %.2f\n", a.getCode(), a.getName(), Functions.lowestHighest(a, 'h'));
+            }
+        }
+        System.out.println("2° lugar: ");
+        for (Student a :
+                allStudents) {
+            float temp = Functions.lowestHighest(a, 'h');
+            if (temp == second) {
+                System.out.printf("%d - %s: Nota = %.2f\n", a.getCode(), a.getName(), Functions.lowestHighest(a, 'h'));
+            }
+        }
+        System.out.println("3° lugar: ");
+        for (Student a :
+                allStudents) {
+            float temp = Functions.lowestHighest(a, 'h');
+            if (temp == third) {
+                System.out.printf("%d - %s: Nota = %.2f\n", a.getCode(), a.getName(), Functions.lowestHighest(a, 'h'));
+            }
+        }
+
+        //Exercise 6: Three worst scores.
+        System.out.println("As tres piores notas da turma: ");
+        float firstWorst = 100f;
+        float secondWorst = 100f;
+        float thirdWorst = 100f;
+        for (Student c : allStudents){
+            float r = 0;
+            float minC = Functions.lowestHighest(c, 'l');
+            for (Student d : allStudents){
+                float minD = Functions.lowestHighest(d,'l');
+                if (minC < minD){
+                    r = minC;
+                } else {
+                    r = minD;
+                }
+                if (r < firstWorst){
+                    firstWorst = r;
+                } else if (r < secondWorst && r != firstWorst){
+                    secondWorst = r;
+                } else if (r < thirdWorst && r != firstWorst && r != secondWorst){
+                    thirdWorst = r;
+                }
+            }
+        }
+        System.out.println("1° lugar: ");
+        for (Student d : allStudents) {
+            if (Functions.lowestHighest(d,'l') == firstWorst){
+                System.out.printf("%d - %s: Nota = %.2f\n", d.getCode(), d.getName(), Functions.lowestHighest(d, 'l'));
+            }
+        }
+        System.out.println("2° lugar: ");
+        for (Student d : allStudents){
+            if (Functions.lowestHighest(d,'l') == secondWorst){
+                System.out.printf("%d - %s: Nota = %.2f\n", d.getCode(), d.getName(), Functions.lowestHighest(d, 'l'));
+            }
+        }
+        System.out.println("3° lugar: ");
+        for (Student d : allStudents) {
+            if (Functions.lowestHighest(d,'l') == thirdWorst){
+                System.out.printf("%d - %s: Nota = %.2f\n", d.getCode(), d.getName(), Functions.lowestHighest(d, 'l'));
+            }
+        }
+
+        //Exercise 7:
+        System.out.println("Medias decrescentes: ");
+        var medias = new ArrayList();
+        for (Student c : allStudents){
+            medias.add(Functions.Average(c));
+        }
+        Collections.sort(medias, Collections.reverseOrder());
+        int pos = 1;
+        for (Object o : medias) {
+            float oFloat = (float) o;
+            for (Student s : allStudents){
+                if (Functions.Average(s) == oFloat){
+                    System.out.printf("%d - %d - %s : Média = %.2f\n", pos, s.getCode(), s.getName(), oFloat);
+                    pos++;
+                }
+
+
+            }
+        }
+
+
+
+
+
+
     }
 }
