@@ -36,23 +36,12 @@ public class Main {
 
         //Exercise 1: The students with a grade higher than 7.0
         System.out.println("Alunos Aprovados: ");
-        for (Student s :
-                allStudents) {
-            if (Functions.Average(s) >= 7) {
-                System.out.printf("%d - %s : Média = %.2f\n", s.getCode(), s.getName(), Functions.Average(s));
-            }
-        }
+        Functions.AprovedReproved(allStudents, 'a');
 
         //Exercise 2: The students who failed
         System.out.println("Alunos Reprovados: ");
-        for (Student s :
-                allStudents) {
-            float missed = 7.0f - Functions.Average(s);
-            if (Functions.Average(s) <= 7) {
-                System.out.printf("%d - %s : Média = %.2f (faltou = %.2f)\n", s.getCode(), s.getName(), Functions.Average(s), missed);
-            }
-        }
-
+        Functions.AprovedReproved(allStudents, 'r');
+        
         //Exercise 3: Students with the highest note possible.
         System.out.println("Alunos Nota 10: ");
         for (Student s :

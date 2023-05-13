@@ -1,5 +1,7 @@
 import entities.Student;
 
+import java.util.List;
+
 public class Functions {
     //class for calculate average
     public static float Average(Student x) {
@@ -36,5 +38,17 @@ public class Functions {
                 break;
         }
         return n;
+    }
+
+    public static void AprovedReproved(List<Student> ls, char ar) {
+        for (Student s : ls){
+            Student c = null;
+            if (Functions.Average(s) >= 7.0 && ar == 'a') {
+                System.out.printf("%d - %s : Média = %.2f\n", s.getCode(), s.getName(), Functions.Average(s));
+            } else if (Functions.Average(s) < 7.0 && ar == 'r'){
+                float missed = 7.0f - Functions.Average(s);
+                System.out.printf("%d - %s : Média = %.2f (faltou = %.2f)\n", s.getCode(), s.getName(), Functions.Average(s), missed);
+            }
+        }
     }
 }
